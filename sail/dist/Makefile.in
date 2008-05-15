@@ -1,0 +1,127 @@
+
+srcdir=	@srcdir@/../src
+distdir=@srcdir@/../dist
+builddir=.
+
+##################################################
+# Installation directories and permissions.
+##################################################
+prefix=	@prefix@
+exec_prefix=@exec_prefix@
+bindir=	@bindir@
+includedir=@includedir@
+libdir=	@libdir@
+docdir=	$(prefix)/docs
+
+dmode=	755
+emode=	555
+fmode=	444
+
+transform=@program_transform_name@
+
+CPPFLAGS=	-I$(builddir) -I$(srcdir) @CPPFLAGS@
+CFLAGS=		-c -fno-common $(CPPFLAGS) @CFLAGS@
+CC=		@MAKEFILE_CC@
+CCLINK=		@MAKEFILE_CCLINK@
+LDFLAGS=	@LDFLAGS@
+LIBTOOL=	@LIBTOOL@
+
+C_FILES=\
+	$(srcdir)/main.c $(srcdir)/pl_main.c $(srcdir)/pl_1.c \
+	$(srcdir)/pl_2.c $(srcdir)/pl_3.c $(srcdir)/pl_4.c \
+	$(srcdir)/pl_5.c $(srcdir)/pl_6.c $(srcdir)/pl_7.c \
+	$(srcdir)/dr_main.c $(srcdir)/dr_1.c $(srcdir)/dr_2.c \
+	$(srcdir)/dr_3.c $(srcdir)/dr_4.c $(srcdir)/dr_5.c \
+	$(srcdir)/lo_main.c $(srcdir)/assorted.c $(srcdir)/game.c \
+	$(srcdir)/globals.c $(srcdir)/misc.c $(srcdir)/parties.c \
+	$(srcdir)/sync.c $(srcdir)/version.c
+
+C_OBJS= main@o@ pl_main@o@ pl_1@o@ pl_2@o@ pl_3@o@ pl_4@o@ \
+	pl_5@o@ pl_6@o@ pl_7@o@ dr_main@o@ dr_1@o@ dr_2@o@ \
+	dr_3@o@ dr_4@o@ dr_5@o@ lo_main@o@ assorted@o@ game@o@ \
+	globals@o@ misc@o@ parties@o@ sync@o@ version@o@
+
+all: sail
+
+install-strip install: all sail
+
+sail: $(C_OBJS)
+	$(CCLINK) -o $@ $(LDFLAGS) $(C_OBJS) $(LIBS)
+	$(POSTLINK) $@
+
+mostly-clean clean:
+	$(rm) -rf $(C_OBJS)
+	$(rm) -rf tags *@o@ *~ *.o *.o.lock *.lo core *.core
+
+REALCLEAN_LIST=\
+	Makefile config.cache config.log config.status \
+	configure.lineno sail.h sail.spec sail_config.h
+
+distclean maintainer-clean realclean: clean
+	$(rm) -rf $(REALCLEAN_LIST)
+	$(rm) -rf libtool
+
+check dvi info obj TAGS:
+	@echo "$@: make target not supported" && true
+
+dist:
+	@echo "$@: make target not supported" && false
+
+lint splint:
+	$(splint) -nof -f $(distdir)/splint.rc -strict \
+		$(CPPFLAGS) @CFLAGS@ -I. $(C_FILES)
+
+main@o@: $(srcdir)/main.c
+	 $(CC) $(CFLAGS) $?
+pl_main@o@: $(srcdir)/pl_main.c
+	 $(CC) $(CFLAGS) $?
+pl_1@o@: $(srcdir)/pl_1.c
+	 $(CC) $(CFLAGS) $?
+pl_2@o@: $(srcdir)/pl_2.c
+	 $(CC) $(CFLAGS) $?
+pl_3@o@: $(srcdir)/pl_3.c
+	 $(CC) $(CFLAGS) $?
+pl_4@o@: $(srcdir)/pl_4.c
+	 $(CC) $(CFLAGS) $?
+pl_5@o@: $(srcdir)/pl_5.c
+	 $(CC) $(CFLAGS) $?
+pl_6@o@: $(srcdir)/pl_6.c
+	 $(CC) $(CFLAGS) $?
+pl_7@o@: $(srcdir)/pl_7.c
+	 $(CC) $(CFLAGS) $?
+dr_main@o@: $(srcdir)/dr_main.c
+	 $(CC) $(CFLAGS) $?
+dr_1@o@: $(srcdir)/dr_1.c
+	 $(CC) $(CFLAGS) $?
+dr_2@o@: $(srcdir)/dr_2.c
+	 $(CC) $(CFLAGS) $?
+dr_3@o@: $(srcdir)/dr_3.c
+	 $(CC) $(CFLAGS) $?
+dr_4@o@: $(srcdir)/dr_4.c
+	 $(CC) $(CFLAGS) $?
+dr_5@o@: $(srcdir)/dr_5.c
+	 $(CC) $(CFLAGS) $?
+lo_main@o@: $(srcdir)/lo_main.c
+	 $(CC) $(CFLAGS) $?
+assorted@o@: $(srcdir)/assorted.c
+	 $(CC) $(CFLAGS) $?
+game@o@: $(srcdir)/game.c
+	 $(CC) $(CFLAGS) $?
+globals@o@: $(srcdir)/globals.c
+	 $(CC) $(CFLAGS) $?
+misc@o@: $(srcdir)/misc.c
+	 $(CC) $(CFLAGS) $?
+parties@o@: $(srcdir)/parties.c
+	 $(CC) $(CFLAGS) $?
+sync@o@: $(srcdir)/sync.c
+	 $(CC) $(CFLAGS) $?
+version@o@: $(srcdir)/version.c
+	 $(CC) $(CFLAGS) $?
+
+depend:
+	@$(depend) -o @o@ $(CPPFLAGS) @CFLAGS@ $(C_FILES)
+	@$(sed) -e 's#^@srcdir@/../src/##g' dep1 > dep2
+	@$(cat) ./dep2 >> ./Makefile
+	@$(rm) -f ./dep1 ./dep2
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.

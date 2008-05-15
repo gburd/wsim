@@ -1,0 +1,26 @@
+#!/bin/sh -
+# Build tags files.
+
+files=`echo ../src/*.[ch]`
+
+f=tags
+echo "Building $f"
+rm -f $f
+
+# Figure out what flags this ctags accepts.
+flags=""
+if ctags -d ../src/game.c 2>/dev/null; then
+	flags="-d $flags"
+fi
+if ctags -t ../src/game.c 2>/dev/null; then
+	flags="-t $flags"
+fi
+if ctags -w ../src/game.c 2>/dev/null; then
+	flags="-w $flags"
+fi
+
+ctags $flags $files 2>/dev/null
+chmod 444 $f
+
+etags $files -o TAGS 2>/dev/null
+chmod 444 $f

@@ -1,0 +1,15 @@
+#!/bin/sh -
+
+echo 'Creating Sail source tree symbolic links...'
+
+build()
+{
+	#echo "	$1 -> $2"
+	(cd ../`dirname $1` && rm -f `basename $1` && ln -s $2 `basename $1`)
+}
+
+build src/tags ../dist/tags
+build build_unix/tags ../dist/tags
+
+build src/TAGS ../dist/TAGS
+build build_unix/TAGS ../dist/TAGS

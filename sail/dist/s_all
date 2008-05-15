@@ -1,0 +1,8 @@
+#!/bin/sh -
+#	$Id: s_all,v 1.1.1.1 2005/03/17 16:47:20 gregburd Exp $
+
+sh s_perm		# permissions.
+sh s_symlink		# symbolic links.
+sh s_readme		# distribution README file.
+sh s_config		# autoconf.
+sh s_tags		# tags files.

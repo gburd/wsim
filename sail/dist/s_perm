@@ -1,0 +1,27 @@
+#!/bin/sh -
+
+d=..
+echo 'Updating Sail source tree permissions...'
+
+run()
+{
+	#echo "	$1 ($2)"
+	if [ -f "$d/$1" ]; then
+		chmod "$2" "$d/$1"
+	else
+		echo "$d/$1: no such file or directory"
+		exit 1
+	fi
+}
+
+run dist/config.guess 555
+run dist/config.sub 555
+run dist/configure 555
+run dist/install-sh 555
+run dist/s_all 555
+run dist/s_config 555
+run dist/s_perm 555
+run dist/s_readme 555
+run dist/s_symlink 555
+run dist/s_tags 555
+run dist/s_test 555

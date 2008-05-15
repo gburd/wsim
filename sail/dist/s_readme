@@ -1,0 +1,25 @@
+#!/bin/sh -
+#	$Id: s_readme,v 1.1.1.1 2005/03/17 16:47:20 gregburd Exp $
+#
+# Build the README.
+
+echo 'Updating Sail README file...'
+
+d=..
+
+t=/tmp/__t
+trap 'rm -f $t; exit 0' 0 1 2 3 13 15
+
+. RELEASE
+
+cat << END_OF_README>$t
+$DBSQL_VERSION_STRING
+
+This is version $SAIL_VERSION_MAJOR.$SAIL_VERSION_MINOR.$SAIL_VERSION_PATCH of Sail.
+Brought to you by the Wooden Ships & Iron Men Organization (wsim.org).
+
+END_OF_README
+
+f=../README
+cmp $t $f > /dev/null 2>&1 ||
+    (echo "Building $f" && rm -f $f && cp $t $f && chmod 444 $f)
