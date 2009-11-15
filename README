@@ -1,0 +1,22 @@
+Wooden Ships & Iron Men
+
+Wooden Ships & Iron Men is a tactical simulation of naval warfare during the
+great age of sale.  The game covers the period from 1776 to 1814 when the
+great square sail ships-of-the-line dominated the oceans and the speedy and
+durable American frigates gave wold recognition to their young parent navy.
+
+This project contains the following:
+* docs/ The 3rd Edition of the WSIM manual including updates to clairify
+  aspects of gameplay.  (Authored using Apple's Pages.app, part of the
+  iWork productivity suite.)
+* sail/ Unix command line, ASCII-art implementation of the WSIM game.  The
+  code was found in the VINO OS (http://www.eecs.harvard.edu/syrah/vino/)
+  project and updated to build using GNU Autoconf.
+* site/ What was the http://wsim.org/ web site before lawyers from Hasbro,
+  the parent company of Wizards of the Coast a division of which is Avalon
+  Hill, asked that it be taken down.
+
+Although IANAL, I have determined that the trademark for "Wooden Ships &
+Iron Men" is classified as "Dead"[1].
+
+[1] http://tess2.uspto.gov/bin/showfield?f=doc&state=4001:2r5it3.2.1
