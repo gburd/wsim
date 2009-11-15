@@ -16,7 +16,6 @@ cat << END_OF_README>$t
 $DBSQL_VERSION_STRING
 
 This is version $SAIL_VERSION_MAJOR.$SAIL_VERSION_MINOR.$SAIL_VERSION_PATCH of Sail.
-Brought to you by the Wooden Ships & Iron Men Organization (wsim.org).
 
 END_OF_README
 
